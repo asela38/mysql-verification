@@ -49,9 +49,6 @@ DELIMITER ;
 
 -- end
 
-
-    
-
 call simple_loop();
 
 
@@ -64,6 +61,10 @@ where first_name = 'aab';
 SELECT * FROM user_test 
 where user_id = 10003;
 
+
+explain SELECT * FROM user_test 
+where first_name in ( 'aab', 'aad', 'aac');
+
 explain 
 SELECT * FROM user_test
 WHERE month(date_of_birth) = 7 AND DAY(date_of_birth) = 20 AND YEAR(date_of_birth) = 1978;
@@ -71,6 +72,9 @@ WHERE month(date_of_birth) = 7 AND DAY(date_of_birth) = 20 AND YEAR(date_of_birt
 explain
 SELECT * FROM user_test
 WHERE date_of_birth = '1978-07-20';
+
+SELECT * FROM user_test
+WHERe DATEDIFF(str_to_date('1978-07-20',"%Y-%c-%e"), date_of_birth) = 0;
 
 CREATE INDEX first_name_index ON user_test(first_name);
 CREATE INDEX last_name_index ON user_test(last_name);
